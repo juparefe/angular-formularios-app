@@ -1,1 +1,64 @@
-<p>dinamicos works!</p>
+<h2>Reactive: <small>Dinamicos</small></h2>
+<hr>
+
+<form autocomplete="off" [formGroup]="miFormulario" (ngSubmit)="guardar()">
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input type="text"
+                   class="form-control"
+                   placeholder="Nombre de la persona"
+                   formControlName="nombre">
+            <span class="form-text text-danger" *ngIf="validarCampo('nombre')">
+                Este campo es obligatorio
+            </span>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input
+                class="form-control"
+                placeholder="Agregar favorito"
+                [formControl] = "nuevofavorito"
+                (keyup.enter)="agregarFavorito()">
+                <button class="btn btn-outline-primary"
+                        type="button"
+                        (click)="agregarFavorito()">
+                    Agregar
+                </button>
+            </div>
+           
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        <div class="col-sm-9" formArrayName="favoritos">
+            <div class="input-group mb-1"
+                 *ngFor="let favorito of favoritosArray.controls; let i=index">
+                    <input type="text"
+                    class="form-control"
+                    [formControlName]="i">
+                    <button class="btn btn-outline-danger"
+                            (click)="eliminar(i)">
+                        Eliminar
+                    </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary float-end">
+                Guardar
+            </button>
+        </div>
+    </div>
+</form>
+
+<span>Valid</span>
+<pre>{{miFormulario.valid}}</pre>
+<span>Persona</span>
+<pre>{{miFormulario.value | json}}</pre>
+<span>Errors</span>
+<pre>{{miFormulario.controls['nombre'].errors| json}}</pre>
