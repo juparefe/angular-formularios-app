@@ -27,7 +27,7 @@ export class BasicosComponent implements OnInit{
     'nombre': [null, [Validators.required, Validators.minLength(3)]],
     'precio': [null, [Validators.required, Validators.min(0)]],
     'existencias': [null, [Validators.required, Validators.min(0)]]
-  })
+  });
 
   constructor(private fb: FormBuilder) { }
 
